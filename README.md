@@ -129,6 +129,7 @@ More experiments on low-bit quantizations reveal how KLQ exhibits superadditive 
 |    3/16/3  |    62.31   |   
 |    16/3/16                  |     22.72  |
 | 16/16/3 |  12.5    |
+| 3/16/16 |  26.21    |
 
 We hypothesize this might happen because each forward pass for remeasuring $KL_i$ under each different quantization uses merely 2 windows of 256 tokens, more calibration tokens might help clean out noise and lower this number though we currently lack the compute to run all the necessary tests on a reasonable scale of time. Using this same remeasurement technique for 4-bit quantization yields worse results (17.5ppl) at 2 windows and 256-token sequences than using the stale FP16 measurements, I hypothesize this happens because of the small sampling size, increasing to 4 windows and 512 token sequences improves it to 16.5ppl but that's still above the 4/16/16 result at 13.36ppl 
 
