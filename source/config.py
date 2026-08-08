@@ -54,7 +54,7 @@ def paths(model):
     d = os.path.join(CACHE_DIR, cfg["tag"])
     os.makedirs(d, exist_ok=True)
     return dict(
-        spaces=os.path.join(d, f"spaces_{cfg['tag']}.pt"),   # step1 output
-        sens_dir=d,                                           # step2 outputs: sens_{space}_{tag}.pt
+        spaces=os.path.join(d, f"spaces_{cfg['tag']}.pt"),   # stage1 output
+        sens_dir=d,                                           # stage2 outputs: sens_{space}_{tag}.pt
         tag=cfg["tag"],
     )
