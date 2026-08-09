@@ -427,12 +427,11 @@ def main():
                     help="K-only budget (overrides --kv_avg for K)")
     ap.add_argument("--v_avg", type=float, default=None,
                     help="V-only budget (overrides --kv_avg for V)")
-    ap.add_argument("--bmin", type=int, default=3)        # W floor
-    ap.add_argument("--a_bmin", type=int, default=2)      # A/KV floor
-    ap.add_argument("--sink", type=int, default=4)          # KV sink
-    ap.add_argument("--a_sink", type=int, default=0,
-                    help="fp16 sink positions for A hooks + excluded "
-                         "from A range calibration; try 4 at 3 bits")
+    ap.add_argument("--bmin", type=int, default=3, help="bit-width floor for weight channels")        # W floor
+    ap.add_argument("--a_bmin", type=int, default=2, help="bit-width floor for activation and KV channels")      # A/KV floor
+    ap.add_argument("--sink", type=int, default=4, help="fp16 sink positions for KV hooks."))          # KV sink
+    ap.add_argument("--a_sink", type=int, default=4,
+                    help="fp16 sink positions for A hooks.")
     ap.add_argument("--vq", action="store_true",
                     help="additive VQ (2x256x8, 2.0 bits/scalar) for W "
                          "directions allocated 1.5-2.5 bits")
