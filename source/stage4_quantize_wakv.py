@@ -13,7 +13,7 @@
 #   python stage4_quantize_wakv.py --model qwen --w_avg 4.25 --wikitext
 #   python stage4_quantize_wakv.py --model qwen --no_kv --no_a     (W-only sanity)
 
-import argparse
+import argparsef
 import json
 import os
 import time
@@ -429,7 +429,7 @@ def main():
                     help="V-only budget (overrides --kv_avg for V)")
     ap.add_argument("--bmin", type=int, default=3, help="bit-width floor for weight channels")        # W floor
     ap.add_argument("--a_bmin", type=int, default=3, help="bit-width floor for activation and KV channels")      # A/KV floor
-    ap.add_argument("--sink", type=int, default=4, help="fp16 sink positions for KV hooks."))          # KV sink
+    ap.add_argument("--sink", type=int, default=4, help="fp16 sink positions for KV hooks.")          # KV sink
     ap.add_argument("--a_sink", type=int, default=4,
                     help="fp16 sink positions for A hooks.")
     ap.add_argument("--vq", action="store_true",
