@@ -1,0 +1,9 @@
+torch>=2.2            # CUDA build recommended
+transformers>=4.45    
+datasets>=2.18
+numpy
+scipy
+matplotlib
+pandas
+pyarrow               
+requests
