@@ -13,7 +13,8 @@ KLQ-RTN and KLQ-VQ both use FP16 64-sized grouping (taken into account for bpw c
 | **FP16**    | 16/16/16   |   *13.07*                         |   Own measure matchesCoQuant's and ResQ's number   |
 | RTN         | 4/4/4      |     23204.3                       |                                                    |
 | QuaRot    | 4/4/4    |     204.10                        |  CoQuant's rerun (consistent w/ ResQ's 219.9)    |
-|  QUIK       | 4/4/4    |     38.6                        |    ResQ paper                                      |
+|  QUIK       | 4/4/4    |     38.6                        |    ResQ's paper                                      |
+| ResQ        | 4/4/4      |   29.6                          | ResQ's paper
 | **KLQ-RTN** | 4/4/4      |     **21.07**                     |                                                    |
 | **KLQ-RTN** | 4/16/16    |     **15.9**                      |                                                    |
 |  ResQ       | 4.5/4.5/4.5|   18.19                         |    CoQuant rerun                                   |
