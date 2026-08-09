@@ -636,7 +636,7 @@ def main():
         print(f"wikitext-2: {ppl_wt:.2f} (fp16 {base_wt:.2f}, "
               f"x{ppl_wt / base_wt:.3f})   [CoQuant 4.5/4.5/4.5 = 17.76]")
     f = os.path.join(P["sens_dir"],
-                     f"step5_{a.price}_w{a.w_avg}_a{a.a_avg}_kv{a.kv_avg}"
+                     f"stage4_{a.price}_w{a.w_avg}_a{a.a_avg}_kv{a.kv_avg}"
                      f"_{P['tag']}.json")
     with open(f, "w") as fh:
         json.dump(res, fh, indent=1)
