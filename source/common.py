@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 from transformers import AutoModelForCausalLM
-
+import os
 
 def get_teacher(cfg, device="cuda"):
     model = AutoModelForCausalLM.from_pretrained(
