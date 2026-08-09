@@ -5,7 +5,7 @@ Several investigations into the geometry of LLM embedding spaces have found thei
 
 -----
 ## Main results
-The per-direction quantizer is an interchangeable backend, and this repo ships two deliberately simple ones (uniform-grid RTN and a two-book additive VQ). Stronger codes such as lattices (QuIP#, NestQuant), trellises (QTIP), learned codebooks (AQLM, VPTQ) are drop-in replacements on this axis and orthogonal to our claim; likewise, learned rotations (SpinQuant, OSTQuant) and error-compensating rounding (GPTQ, LDLQ) address the coordinate and rounding axes respectively, not the allocation axis KLQ studies. KLQ remains training-free at the cost of one forward pass per direction per matrix per layer.
+The per-direction quantizer is an interchangeable backend, and this repo ships two deliberately simple ones (uniform-grid RTN and a two-book additive VQ). Stronger codes such as lattices (QuIP#, NestQuant), trellises (QTIP), learned codebooks (AQLM, VPTQ) are drop-in replacements on this axis and orthogonal to our claim. Likewise, learned rotations (SpinQuant, ReSpinQuant) and error-compensating rounding (GPTQ, LDLQ) address the coordinate and rounding axes respectively, not the allocation axis KLQ studies. KLQ remains training-free at the cost of one forward pass per direction per matrix per layer.
 KLQ-RTN and KLQ-VQ both use FP16 64-sized grouping (taken into account for bpw calculations) and differ in grid-assignment method, RTN uses a uniform grid while VQ uses a additive vector quantization with d=8 and 256 levels.
 
 |             |   Effective W/A/KV   |  Qwen 2.5 0.5B (Wikitext-2 PPL)   |      Source                                        |
