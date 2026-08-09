@@ -435,7 +435,7 @@ def main():
     ap.add_argument("--vq", action="store_true",
                     help="additive VQ (2x256x8, 2.0 bits/scalar) for W "
                          "directions allocated 1.5-2.5 bits")
-    ap.add_argument("--no_a", action="store_true")
+    ap.add_argument("--no_a", action="store_true", help="Leaves activations at FP16")
     ap.add_argument("--fresh_a", action="store_true",
                     help="re-capture res/post bases under quantized weights "
                          "(phase 2.5) instead of using fp16 stage1 spaces")
@@ -465,10 +465,10 @@ def main():
                     help="fresh-sens window length")
     ap.add_argument("--scale_floor", type=float, default=0.0,
                     help="floor A ranges at this many sigmas of the "
-                         "direction's eigenvalue (0 = off; 4 recommended "
+                         "direction's eigenvalue (0 = off, 4 recommended "
                          "at low bits)")
-    ap.add_argument("--no_kv", action="store_true")
-    ap.add_argument("--no_w", action="store_true")
+    ap.add_argument("--no_kv", action="store_true", help="Leaves KV cache at FP16")
+    ap.add_argument("--no_w", action="store_true", help="Leaves weights at FP16")
     ap.add_argument("--wikitext", action="store_true")
     ap.add_argument("--calib_nwin", type=int, default=8)
     ap.add_argument("--seq", type=int, default=512)
