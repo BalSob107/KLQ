@@ -449,7 +449,7 @@ def main():
                     help="transfer fp16 KL prices onto the fresh bases "
                          "by basis matching (phase 2.6, ~free, no new "
                          "forwards); implies --fresh_a. Cheaper "
-                         "alternative to --fresh_sens, needs more experimentation.")
+                         "alternative to --fresh_sens. Limited testing suggests it doesn't fix anything but needs more experimentation.")
     ap.add_argument("--fresh_sens", action="store_true",
                     help="also re-measure res/post KL prices under the "
                          "quantized model along the fresh bases (phase "
