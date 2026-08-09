@@ -61,7 +61,7 @@ For the quantization itself we use 2 methods:
 
 These are deliberately simple choices as the quantization acts as an interchangeable backend, the method only applies to direction priorization and bit-width allocation. While quantizing we also reestimate the eigenbases per block under the already quantized upstream while KL price remain fixed.
 
-For the KV-cache and activations we use the same procedure. Activations are sampled from the input of the MLP and the attention (post and res spaces), the KV is sampled from each layer and head, using a different eigenbasis per head, with the first 4 tokens assumed as sink and kept at full precision. This repo provides inference-side simulated quantization hooks, no actual kernels for deployment.
+For the KV-cache and activations we use the same procedure. Activations are sampled from the input of the MLP and the attention (post and res spaces), the KV is sampled from each layer and head, using a different eigenbasis per head, with the first 4 tokens assumed as sink and kept at full precision. 
 
 -------------------------------
 ## Findings
