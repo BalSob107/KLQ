@@ -66,7 +66,7 @@ For the KV-cache and activations we use the same procedure. Activations are samp
 -------------------------------
 ## Findings
 
-First of all, the study of the geometry of the model confirms the massive activations, $\lambda_1 \gg \lambda_i$ for all $i>1$. The rest of the directions form a sheath around this massive activation. 
+First of all, the study of the geometry of the model confirms the massive activations, $\lambda_1 \gg \lambda_i$ for all $i>1$, either past certain activation layer or for the whole model. The rest of the directions form a sheath around this massive activation. 
 
 Most allocation-axis methods use variance as a measure of the importance of a direction. Analyzing variance and causal KL damage turns out the correlation between these two vary wildly, mainly depending on the space we are analyzing within the layer. Interestingly, this correlation is mostly the same, not only within spaces of different layers of the same model, but among different models.
 
