@@ -1,4 +1,4 @@
-torch>=2.2            # CUDA build recommended
+torch>=2.6            # CUDA build recommended
 transformers>=4.45    
 datasets>=2.18
 numpy
@@ -7,4 +7,3 @@ matplotlib
 pandas
 pyarrow               
 requests
-os
