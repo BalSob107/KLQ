@@ -35,8 +35,8 @@ KLQ-RTN and KLQ-VQ both use FP16 64-sized grouping (taken into account for bpw c
 | **KLQ-VQ**      | 4.5/4.5/4.5      |     **11.45**           |                                                    |
 | **KLQ-VQ**      | 4.5/16/16      |     **10.52**           |                                                      |
 
-The whole Qwen 2.5 0.5B pipeline, including the sampling from each layer, the eigenvalue decomposition, the KL damage measurements using 4 windows and 512 tokens per window, took ∼8 hours to compute on an RTX 3090.
-This same pipeline for Llama 3.2 1B took ∼15 hours on the same hardware.
+The whole Qwen 2.5 0.5B pipeline, including the sampling from each layer, the eigenvalue decomposition, the KL damage measurements using 4 windows and 512 tokens per window, took ∼5 hours to compute on an RTX 3090.
+This same pipeline for Llama 3.2 1B took ∼10 hours on the same hardware.
 
 
 
