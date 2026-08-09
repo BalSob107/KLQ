@@ -146,3 +146,49 @@ As of now this project has several limitations, from most important to least imp
 4. <ins>Scaling:</ins> Theoretically, bigger models have more redundant geometry so this might work in KLQ's benefit, though modern models are trained specifically to eliminate this redundant geometry so that might work against KLQ. Further testing with both bigger and more modern models is needed. One proposed experiment is to apply KLQ to the models introduced in "Outlier-Safe Pre-Training for Robust 4-Bit Quantization of Large Language Models" which provides two different models (both available on HuggingFace), one trained classically which exhibits the uneven space, and another one trained in an outlier-safe regime which exhibits a naturally even space, if the hypothesis made by KLQ are true then the outlier-safe model should benefit from KLQ much less than the classically trained model.
 5. <ins>Real benchmarks:</ins> While perplexity is a good proxy for the degradation of a model under quantization a bundle of real benchmarks is still to be run.
 6. <ins>Packed kernels for real quantization:</ins> This is not a limitation of the method itself but more so of this repo, currently we use "fake" quantization in which the numbers are rounded realistically but the memory and computational footprint of inference is the same as that of a FP16 model. This is not a big problem since KLQ for now is more a of a theoretical framework.
+
+## Pipeline usage
+
+To quantize a model you can use the provided pipeline ( given the model is Llama-style: MoEs and other architectures go untested and will most likely throw errors), first register the model in config.py. This is the Llama 3.2 1B run:
+```
+    "llama3_1b": dict(
+        hf="unsloth/Llama-3.2-1B",   
+        tag="llama3_1b",
+        NB=16,
+        D=2048, DI=8192,
+        H_KV=8, HEAD_DIM=64,   
+        VOCAB=128256,
+        VAL_DTYPE="uint32",
+        VAL_BIN=os.path.join(ROOT, "data", "val_llama_1b.bin"),  
+    ),
+ ```
+Then take a sample from the calibration dataset:
+```
+python stage0_pretokenize.py --model llama3_1b --preset wikitext2 --tokens 4000000
+```
+You can also load a local .parquet file or a HuggingFace dataset:
+```
+python stage0_pretokenize.py --model llama3_1b --parquet dump.parquet
+python stage0_pretokenize.py --model llama3_1b --hf <dataset> --split train --field text
+```
+Then stage 1 runs the samples through the model and captures the hidden states directly outputting the eigendecomposition of each space of each layer into spaces_{model}.pt = {space: {"mu": (NB,d), "evals": (NB,d),                                    "evecs": (NB,d,d)}}, this file is usually several GBs.
+```
+python stage1_cache.py --model llama3_1b --nwin 8 --seq 512 --pb 8 --wikitext
+```
+Stage 2 is the actual causal KL measurement, this is the most compute intensive part of the pipeline. It will output one sens_{space}_{model}.pt file per space. By default if the space that's being probed has more than 2048 dimensions it will probe only the top 1024 by variance and then a random sample of 256 from the rest. You can force the model to probe all directions using the --full flag. You can control the topk and tail directions with --topk int and --tail int flags.
+```
+python stage2_sens.py --model llama3_1b --spaces res,qkv,ctx,mlp,int --full --wikitext
+```
+Stage 3 is not necessary for the quantization but it's a useful analysis tool, after running stage 2 you can analyze the model's space's KL profile, eigenspectrum and how they relate layer by layer via the Spearman's coefficient.
+```
+python stage3_read.py --model llama3_1b --spaces res 
+```
+Stage 4 is the actual quantization process, weight averages should be lowered 0.25bpw to compensate for the 64-grouping. After quantization it will show the real effective BPW. w_avg might require finetuning from your part to get to the desired amount when using low bits and --vq.
+To quantize RTN-mode the model to 4/4/4 and evaluate on wikitext:
+```
+python stage4_quantize_wakv.py --model llama3_1b --w_avg 3.75 --kv_avg 4.0 --a_avg 4.0 --wikitext
+```
+There are many flags, to learn what each one does and recreate different experiments from the findings, run:
+```
+python stage4_quantize_wakv.py --help
+```
