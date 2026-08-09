@@ -125,7 +125,7 @@ More experiments on low-bit quantizations reveal how KLQ exhibits superadditive 
 |     Quantization                                                          | Llama 3.2 1B Wikitext-2 PPL |   Expected ppl |   
 |---------------------------------------------------------------------|----------------|-------|
 |            16/3/3                                        |   23.68    |  29  |
-|       3/3/3        |    161.98 | 43 |
+|       3/3/3        |    161.98 | 63 |
 |    3/16/3  |    62.31   |   
 |    16/3/16                  |     22.72  |
 | 16/16/3 |  12.5    |
