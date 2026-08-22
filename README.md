@@ -85,14 +85,14 @@ The following table shows the average Spearman coefficient of $\lambda_i$ and $K
 
 The following figures plot put each direction in each space of a specific layer of the Qwen 2.5 0.5B model and the Llama 3.2 1B model respectively:
 
-![image](https://github.com/Mallacan-Coder/KLQ/blob/main/figures/lambda_kl_plot_qwen_10.png)
-![image](https://github.com/Mallacan-Coder/KLQ/blob/main/figures/lambda_kl_plot_llama3_6.png)
+![image](https://github.com/BalSob107/KLQ/blob/main/figures/lambda_kl_plot_qwen_10.png)
+![image](https://github.com/BalSob107/KLQ/blob/main/figures/lambda_kl_plot_llama3_6.png)
 
 This means that for certain spaces the variance-monotonicity of some directions implies KL-monotonicity of those same directions so ranking by variance would be an efficient heuristic for these spaces (res, post, int) while failing for the others (qkv, ctx). This would solve the problem of finding the most to least important directions, but KLQ not only finds important directions, it also uses how important each direction is related to the rest to assign a bit-width via waterfilling. Turns out that even if the rankings were perfectly monotone with each other, waterfilling with variance would be worse than waterfilling with KL since both measures have very different distributions. KL is typically either more concentrated or more spread out than variance, depending on the space, the following images show the first 512/1024 directions of a few spaces of different layers from Qwen 2.5 0.5B and Llama 3.2 1B.
 
-![image](https://github.com/Mallacan-Coder/KLQ/blob/main/figures/distribution_llama3_ctx_10.png)
-![image](https://github.com/Mallacan-Coder/KLQ/blob/main/figures/distribution_llama3_qkv_5png.png)
-![image](https://github.com/Mallacan-Coder/KLQ/blob/main/figures/distribution_qwen_post_6.png)
+![image](https://github.com/BalSob107/KLQ/blob/main/figures/distribution_llama3_ctx_10.png)
+![image](https://github.com/BalSob107/KLQ/blob/main/figures/distribution_llama3_qkv_5png.png)
+![image](https://github.com/BalSob107/KLQ/blob/main/figures/distribution_qwen_post_6.png)
 
 
 So, even if $\lambda_i>\lambda_j$ implied $KL_i>KL_j$ distributing bit-width using waterfilling on $\lambda_i$ would result in a sub-optimal usage of resources. We test this hypothesis by using $p_i = \lambda_i||Wv_i||^2$ as variance-pricing. The following table uses perplexity on the FineWeb dataset on 512-token sequences, same 64-grouping method used.
