@@ -390,7 +390,7 @@ def calib_ranges(model, cfg, P, eig_kv, nwin, seq, pb, seed, cache=None,
 
 
 def ppl_wikitext(model, cfg, seqlen=2048, pb=1):
-    """WikiText-2 test PPL, CoQuant protocol (they report 13.07 fp16)."""
+    """WikiText-2 test PPL"""
     from datasets import load_dataset
     from transformers import AutoTokenizer
     ds = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
@@ -487,7 +487,7 @@ def main():
     base_wt = None
     if a.wikitext:
         base_wt = ppl_wikitext(model, cfg)
-        print(f"fp16 wikitext-2 ppl: {base_wt:.2f}  (CoQuant row: 13.07)")
+        print(f"fp16 wikitext-2 ppl: {base_wt:.2f}")
 
     wres = None
     if not a.no_w:
@@ -633,7 +633,7 @@ def main():
         res.update(base_wikitext=base_wt, wikitext=ppl_wt,
                    wikitext_ratio=ppl_wt / base_wt)
         print(f"wikitext-2: {ppl_wt:.2f} (fp16 {base_wt:.2f}, "
-              f"x{ppl_wt / base_wt:.3f})   [CoQuant 4.5/4.5/4.5 = 17.76]")
+              f"x{ppl_wt / base_wt:.3f})")
     f = os.path.join(P["sens_dir"],
                      f"stage4_{a.price}_w{a.w_avg}_a{a.a_avg}_kv{a.kv_avg}"
                      f"_{P['tag']}.json")
